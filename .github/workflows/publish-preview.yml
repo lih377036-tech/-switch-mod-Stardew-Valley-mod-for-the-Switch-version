@@ -1,0 +1,116 @@
+name: Publish verified portable preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-preview.yml'
+      - 'Stardew-Switch-1.6.15.3-Portable-v1.0.1-preview.zip'
+      - 'Stardew-Switch-1.6.15.3-Portable-v1.0.1-preview.zip.sha256'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-v1.0.1-preview
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'lih377036-tech/-switch-mod-Stardew-Valley-mod-for-the-Switch-version'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+      - name: Verify and extract the original release
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha256sum --check Stardew-Switch-1.6.15.3-Portable-v1.0.1-preview.zip.sha256
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json, zipfile
+          root = Path.cwd()
+          archive = root / 'Stardew-Switch-1.6.15.3-Portable-v1.0.1-preview.zip'
+          expected = '07c3cfcb9a740294f786336b3e873b311b9f852c16d140dc3a9be6d3e035ebb9'
+          assert hashlib.sha256(archive.read_bytes()).hexdigest() == expected
+          with zipfile.ZipFile(archive) as z:
+              assert z.testzip() is None
+              sums = {n:h for h,n in (line.split('  ',1) for line in z.read('SHA256SUMS.txt').decode().splitlines())}
+              assert set(sums) | {'SHA256SUMS.txt'} == set(z.namelist())
+              for name, digest in sums.items():
+                  assert hashlib.sha256(z.read(name)).hexdigest() == digest, name
+              for item in z.infolist():
+                  rel = Path(item.filename)
+                  assert not rel.is_absolute() and not set(rel.parts) & {'..','.git','.github','work','outputs','__pycache__'}
+                  target = (root / rel).resolve()
+                  assert target.is_relative_to(root)
+                  if target.exists():
+                      if item.filename not in {'README.md','SHA256SUMS.txt','evidence/RELEASE_VALIDATION.json'}:
+                          assert target.read_bytes() == z.read(item.filename), 'Refusing to replace a changed file: ' + item.filename
+                  else:
+                      target.parent.mkdir(parents=True, exist_ok=True)
+                      target.write_bytes(z.read(item.filename))
+          (root / '.gitattributes').write_text('* -text\n', encoding='ascii')
+          readme = root / 'README.md'
+          text = readme.read_text(encoding='utf-8')
+          marker = '<!-- github-download-links -->'
+          if marker not in text:
+              first, rest = text.split('\n', 1)
+              links = '\n' + marker + '\n**下载：[v1.0.1-preview 预览版安装包](releases/tag/v1.0.1-preview)**\n\n[新手图文安装教程](新手安装指南.md) · [完整源码](source/) · [构建说明](BUILDING.md)\n'
+              # Use an absolute repository URL so GitHub Markdown resolves the release link correctly.
+              links = links.replace('(releases/tag/', '(https://github.com/lih377036-tech/-switch-mod-Stardew-Valley-mod-for-the-Switch-version/releases/tag/')
+              readme.write_text(first + '\n' + links + '\n' + rest, encoding='utf-8')
+          PY
+          python -B tools/verify_release.py
+      - name: Commit corresponding source and installation guides
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          root = Path.cwd()
+          files = sorted(p for p in root.rglob('*') if p.is_file() and '.git' not in p.relative_to(root).parts and p.name != 'SHA256SUMS.txt' and not set(p.relative_to(root).parts) & {'work','outputs','__pycache__'})
+          (root / 'SHA256SUMS.txt').write_text(''.join(hashlib.sha256(p.read_bytes()).hexdigest() + '  ' + p.relative_to(root).as_posix() + '\n' for p in files), encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publish corresponding source, GPL notices and beginner installation guides'
+            git push origin HEAD:main
+          fi
+      - name: Publish preview ZIP and checksum
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          tag='v1.0.1-preview'
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo 'Preview already exists; release assets are not overwritten.'
+            exit 0
+          fi
+          printf '%s\n' \
+            '包含跳过钓鱼小游戏、原版概率自动捕获宝箱和 UI 信息套件。' \
+            '' \
+            '适用于大气层环境下 Switch 星露谷物语 1.6.15.3 指定构建，Title ID 0100E65002BB8000。' \
+            '' \
+            '下载附件中的完整 ZIP，解压到电脑后先打开“先看这里-安装指南.html”。完整源码、GPL 许可和教程已公开在仓库。' \
+            '' \
+            'UI 设置入口：游戏内背包菜单，按住 ZL＋ZR，再按十字键↑。' \
+            '' \
+            '公开预览版：钓鱼和普通随机宝箱已有一台续航版主机的成功反馈；UI 0.1.5 生日修复尚待真机复测，其他机型和长期稳定性未逐一验证。小锤子仍有手柄无法选中的已知问题，请用组合键。' \
+            > "$RUNNER_TEMP/preview-notes.md"
+          gh release create "$tag" \
+            Stardew-Switch-1.6.15.3-Portable-v1.0.1-preview.zip \
+            Stardew-Switch-1.6.15.3-Portable-v1.0.1-preview.zip.sha256 \
+            --target "$(git rev-parse HEAD)" \
+            --title 'Switch 星露谷物语 1.6.15.3 Mod 合集 v1.0.1-preview' \
+            --notes-file "$RUNNER_TEMP/preview-notes.md" \
+            --prerelease --latest=false
