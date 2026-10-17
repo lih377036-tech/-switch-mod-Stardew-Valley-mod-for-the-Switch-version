@@ -1,0 +1,40 @@
+{
+  "status": "PASSED",
+  "payload_files": 3,
+  "ui_runtime_source_files": 246,
+  "nso_segments_verified": 3,
+  "ips_records": 2,
+  "npdm_rebuilt_identically": true,
+  "runtime_binaries_unchanged": true,
+  "public_files": 323,
+  "private_content_scan": "passed",
+  "installer_tests": {
+    "status": "PASSED",
+    "tests": 23,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "runner": "PowerShell 7",
+    "fixtures_only": true,
+    "real_sd_modified": false,
+    "sd_or_reader_identity_required": false,
+    "script_sha256": {
+      "Common.ps1": "39e6803b93e57d35d62509b8ef3dbd6c5d7d3ce7843f4b9f448be4c07f24c633",
+      "Install.ps1": "790914334818be2db4ae556b73950ac5816ab803eb0452336a42b35dfbca45ad",
+      "Restore.ps1": "41b741da06a5465237965854cd4c9ae7374a0cf1d98c4023e239c8d1c508c9c8"
+    }
+  },
+  "shell_results": [
+    {
+      "runner": "PowerShell 7",
+      "tests": 23,
+      "status": "PASSED"
+    },
+    {
+      "runner": "Windows PowerShell 5.1",
+      "tests": 23,
+      "status": "PASSED"
+    }
+  ],
+  "post_fix_ui_hardware_tested": false
+}

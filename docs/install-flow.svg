@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="430" viewBox="0 0 1120 430" role="img" aria-labelledby="title desc">
+<title id="title">把解压包中的 atmosphere 文件夹合并到 SD 卡根目录</title>
+<desc id="desc">左侧是电脑上解压后的文件夹，右侧是 SD 卡 E 盘根目录。只复制 atmosphere 文件夹到根目录，与原有 atmosphere 合并。此图是目录示意，不是真实资源管理器截图。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10" fill="#1f7664"/></marker></defs>
+<rect width="1120" height="430" rx="24" fill="#f3f5f2"/>
+<g font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif">
+<text x="36" y="47" font-size="24" font-weight="700" fill="#1f2937">复制到哪一层？看这一张示意图</text>
+<rect x="36" y="74" width="434" height="245" rx="14" fill="#fff" stroke="#d6ded8"/>
+<rect x="650" y="74" width="434" height="245" rx="14" fill="#fff" stroke="#d6ded8"/>
+<text x="58" y="111" font-size="20" font-weight="700" fill="#1f2937">电脑：解压后的文件夹</text>
+<text x="672" y="111" font-size="20" font-weight="700" fill="#1f2937">SD 卡根目录：E:\（示例）</text>
+<rect x="55" y="132" width="396" height="47" rx="8" fill="#e2f0e9"/>
+<text x="77" y="163" font-size="23" font-weight="700" fill="#155541">▣ atmosphere  ← 复制这个</text>
+<text x="77" y="210" font-size="20" fill="#6b7280">tools　　安装 / 恢复脚本</text>
+<text x="77" y="249" font-size="20" fill="#6b7280">source　 源码与许可资料</text>
+<text x="77" y="288" font-size="20" fill="#6b7280">安装指南、README 等文件</text>
+<rect x="669" y="132" width="396" height="47" rx="8" fill="#e2f0e9"/>
+<text x="691" y="163" font-size="23" font-weight="700" fill="#155541">▣ atmosphere  ← 与原目录合并</text>
+<text x="713" y="207" font-size="20" fill="#374151">├ contents / 游戏编号 / exefs</text>
+<text x="713" y="244" font-size="20" fill="#374151">└ exefs_patches / 钓鱼补丁</text>
+<text x="691" y="289" font-size="18" fill="#6b7280">旁边可能还有 bootloader 等目录</text>
+<path d="M484 156H630" stroke="#1f7664" stroke-width="5" marker-end="url(#arrow)"/>
+<text x="505" y="199" font-size="18" fill="#155541">粘贴到根目录</text>
+<text x="38" y="359" font-size="20" fill="#1f2937">正确：E:\atmosphere\contents\…</text>
+<text x="38" y="395" font-size="18" fill="#a44332">别放成 E:\atmosphere\atmosphere\…；出现同名文件提示时先检查与备份。</text>
+</g></svg>

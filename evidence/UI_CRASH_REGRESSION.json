@@ -1,0 +1,30 @@
+{
+  "status": "PASSED",
+  "checkedAt": "2026-10-17T11:00:05.1882327+08:00",
+  "native_runner_exit_code": 0,
+  "arm64_compile_time_suites": 8,
+  "replayed_location_registers": [
+    "0x63D70AA1C0",
+    "0x6BA7A2F000"
+  ],
+  "recorded_invalid_collection": "0x3F8CCCCD00000000",
+  "recorded_fault_address": "0x3F8CCCCD00000048",
+  "checks": [
+    "both logged invalid collection pointers rejected before items-field read",
+    "mapped wrong-type collection rejected before native getters",
+    "valid derived location with trusted collection type accepted",
+    "null, unaligned, truncated objects and overflow rejected",
+    "empty and out-of-bounds collection indexing rejected",
+    "native character count bounds 0..2048"
+  ],
+  "source_sha256": {
+    "runtime/source/uiinfo/character_safety.hpp": "765b392dea0788c6b4287fe052739418165c3e367973efff6908f3fc18cf1da9",
+    "runtime/source/uiinfo/character_access.hpp": "f5443f1357c133551d98125fcaac17aa54cf5bb39681ac928ff868d216853410",
+    "runtime/source/uiinfo/characters.hpp": "6c0d78f29146def80f54c224cf1eb298322fd8d44b033692bcc20ea4371932f0",
+    "runtime/source/uiinfo/npc_map.cpp": "c13f347116d80876b920270c92b3cdea2ee4ddf536239f666635d610a440eabf",
+    "tests/character_safety_test.cpp": "c29eeaedcff689f8040cde0237a1fee8e22bd89c97ecb63bf828e0e097a5a29b"
+  },
+  "kernel_query_on_switch_tested": false,
+  "hardware_tested": false,
+  "limitations": "Native runner executes the shared read/type policy over mapped-memory fixtures, not real Switch kernel calls or game state."
+}

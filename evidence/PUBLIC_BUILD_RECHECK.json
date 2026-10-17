@@ -1,0 +1,15 @@
+{
+  "status": "PASSED",
+  "public_ui_build_script_executed": true,
+  "compiled_units": 40,
+  "compile_time_suites": 8,
+  "runtime_sources_match_release": true,
+  "imports_match_release": true,
+  "rebuilt_ui_sha256": "2ddb6489ea7e8fc7decd233446e37861054ef5c3a481375c51e11c07ad22b85b",
+  "distributed_ui_sha256": "bb26c499c3c82d03eb25d5b85fd624774fc93a34225d7d350c8a1fa96c7c3579",
+  "rebuild_bit_identical": false,
+  "distributed_original_runtime_unchanged": true,
+  "fishing_rebuild_sha256": "352f578fadef6862a457b2a5680a08f6b0fb95c81b1651a2930baaacf85e5b6d",
+  "npdm_rebuild_sha256": "f63d42112a3866cf6bf04abd011f30bb3df5e852be244a2200fddcd9a4898d85",
+  "hardware_tested": false
+}

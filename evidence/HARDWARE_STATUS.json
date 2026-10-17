@@ -1,0 +1,20 @@
+{
+  "fishing": {
+    "manual_cast_and_hook": true,
+    "skip_minigame": true,
+    "natural_treasure_and_loot_ui": true,
+    "evidence": "user feedback, one Mariko console",
+    "golden_treasure_separately_confirmed": false
+  },
+  "ui": {
+    "version": "0.1.5-candidate",
+    "post_fix_hardware_tested": false,
+    "previous_0_1_4_shortcut_confirmed": true,
+    "hammer_controller_navigation_working": false,
+    "other_consoles_tested": false
+  },
+  "bundle": {
+    "runtime_binaries_changed": false,
+    "sd_install_performed_for_this_release": false
+  }
+}

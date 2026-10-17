@@ -1,0 +1,7 @@
+work/
+outputs/
+**/__pycache__/
+*.pyc
+source/**/work/
+source/**/outputs/
+evidence/INSTALL_REPORT.json

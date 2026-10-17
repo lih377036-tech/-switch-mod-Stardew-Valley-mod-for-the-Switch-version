@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "name": "Stardew Valley Switch Portable Mods",
+  "bundle_version": "1.0.1-preview",
+  "target": {
+    "game_version": "1.6.15.3",
+    "title_id": "0100E65002BB8000",
+    "main_build_id": "A5C617C14A7F3F6620B3BC8136965A4822D32B9C000000000000000000000000"
+  },
+  "components": {
+    "Fishing": "0.2.0 natural treasure",
+    "UI": "0.1.5 birthday guard candidate"
+  },
+  "device_binding": false,
+  "files": [
+    {
+      "path": "atmosphere/contents/0100E65002BB8000/exefs/main.npdm",
+      "component": "UI",
+      "bytes": 1544,
+      "sha256": "f63d42112a3866cf6bf04abd011f30bb3df5e852be244a2200fddcd9a4898d85"
+    },
+    {
+      "path": "atmosphere/contents/0100E65002BB8000/exefs/subsdk9",
+      "component": "UI",
+      "bytes": 172668,
+      "sha256": "bb26c499c3c82d03eb25d5b85fd624774fc93a34225d7d350c8a1fa96c7c3579"
+    },
+    {
+      "path": "atmosphere/exefs_patches/StardewInstantCatch/A5C617C14A7F3F6620B3BC8136965A4822D32B9C000000000000000000000000.ips",
+      "component": "Fishing",
+      "bytes": 77,
+      "sha256": "352f578fadef6862a457b2a5680a08f6b0fb95c81b1651a2930baaacf85e5b6d"
+    }
+  ],
+  "npdm_sha256": "f63d42112a3866cf6bf04abd011f30bb3df5e852be244a2200fddcd9a4898d85",
+  "known_ui_hashes": [
+    "bb26c499c3c82d03eb25d5b85fd624774fc93a34225d7d350c8a1fa96c7c3579",
+    "5f5377b2b5e83ec063f1dd9fbfb533c60c49604431a58c3f68da5686db0a4c97",
+    "dc543e0d2ab95419b466212d72bb5517d5bc57c890155ac466d2ac629edb7879",
+    "6aaf6f2790e9e1669280ce607274b9984a664b972250b4f84c28d56be0dc75b7",
+    "768aca30ec1822a16004f67a43d5d74981784296f41adac021b4df1ba67ce31d",
+    "242525691c458a1d25619f90f3581b611ad830c5af0dcef114473141399763f9"
+  ],
+  "known_fishing_hashes": [
+    "352f578fadef6862a457b2a5680a08f6b0fb95c81b1651a2930baaacf85e5b6d",
+    "16a582c0f8bfd475c6f2ba59221d4610e05a723b5839e37e4433624d8cbe4723"
+  ],
+  "runtime_guards": {
+    "fishing": "Atmosphere exact NSO Build ID selection",
+    "ui": "18 hook sites and extra ABI fingerprints; not a complete in-memory Build ID reader"
+  },
+  "hardware_evidence": {
+    "fishing_and_natural_treasure": "User reported working on one Mariko Switch.",
+    "ui_0_1_5": "Installed on that console; no post-fix console feedback yet.",
+    "other_consoles": "Not tested."
+  },
+  "no_game_or_firmware_distribution": true
+}
